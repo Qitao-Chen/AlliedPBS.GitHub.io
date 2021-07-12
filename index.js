@@ -172,12 +172,14 @@ function transferData(api, data, callback) {
     }
     $.ajax({
         type: 'get',
-        url: 'http://open.duyiedu.com' + api,
+        url: 'https://open.duyiedu.com' + api,
         data: data,
         dataType: 'json',
         success: function (req) {
+             console.log(this.url)
             if (req.status == 'success') {
                 callback(req);
+               
             } else {
                 alert(req.msg);
             }
