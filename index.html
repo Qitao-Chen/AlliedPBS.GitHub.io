@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -66,7 +67,7 @@
                     </tbody>
                 </table>
                 <ul id="turn-page">
-                   <!-- <li class="prev-page">上一页</li>
+                    <!-- <li class="prev-page">上一页</li>
                    <li class="active tcdNumber">1</li>
                    <li class="tcdNumber">2</li>
                    <li class="tcdNumber">3</li>
@@ -122,11 +123,11 @@
 
 
 
-               
+
             </div>
             <!-- 新增学生表单 -->
             <div class="add-student content" id="add-student">
-                <form action="#" id="add-student-form"  class="add-student-form">
+                <form action="#" id="add-student-form" class="add-student-form">
                     <div>
                         <label for="name">姓名</label>
                         <input type="text" name="name" autocomplete="off">
