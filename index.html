@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -15,107 +15,85 @@
         <div class="header">
             <div class="logo">
                 <img src="./images/logo.png" alt="">
-                <span>渡一教育</span>
+                <span>Allied Gaming</span>
             </div>
         </div>
         <div class="left-menu">
             <dl id="menu">
-                <dt>学生管理</dt>
-                <dd class="active" data-id="student-list">学生列表</dd>
-                <dd data-id="add-student">新增学生</dd>
+                <dt>Priority Build</dt>
+                <dd class="active" data-id="student-list">Order List</dd>
+                <dd data-id="add-student">Add Order</dd>
             </dl>
         </div>
         <div class="right-content">
             <!-- 学生列表 -->
             <div class="student-list content" id="student-list">
                 <div class="search">
-                    <label for="search-word">关键字搜索:</label>
+                    <label for="search-word">KeyWords Search:</label>
                     <input type="text" id="search-word">
-                    <button id="search-submit">搜索</button>
+                    <button id="search-submit">search</button>
                 </div>
                 <table border="0">
                     <!-- 表头区域 -->
                     <thead>
                         <tr>
-                            <th>学号</th>
-                            <th>姓名</th>
-                            <th>性别</th>
-                            <th>邮箱</th>
-                            <th>年龄</th>
-                            <th>手机号</th>
-                            <th>住址</th>
-                            <th>操作</th>
+                            <th>List</th>
+                            <th>Name</th>
+                            <th>Order Number</th>
+                            <th>Status</th>
+                            <th>Email</th>
+                            <th>Year</th>
+                            <th>N/A</th>
+                            <th>Operation</th>
                         </tr>
                     </thead>
                     <!-- 表格内容 -->
                     <tbody id="student-body">
-                        <!-- <tr>
-                            <td>1222</td>
-                            <td> dmq </td>
-                            <td>男</td>
-                            <td> 123123@qq.com</td>
-                            <td>
-                                18
-                            </td>
-                            <td> 12312312312</td>
-                            <td> 北京</td>
-                            <td>
-                                <button class="btn edit">编辑</button>
-                                <button class="btn del">删除</button>
-                            </td>
-                        </tr> -->
+
                     </tbody>
                 </table>
                 <ul id="turn-page">
-                    <!-- <li class="prev-page">上一页</li>
-                   <li class="active tcdNumber">1</li>
-                   <li class="tcdNumber">2</li>
-                   <li class="tcdNumber">3</li>
-                   <span>...</span>
-                   <li class="tcdNumber">8</li>
-                   <li class="tcdNumber">9</li>
-                   <li class="tcdNumber">10</li>
-                   <li class="next-page">下一页</li> -->
+
                 </ul>
                 <div class="modal" id="modal">
                     <div class="mask"></div>
                     <div class="modal-content">
-                        <h2>编辑信息</h2>
+                        <h2>Edit Order</h2>
                         <form action="#" id="edit-student-form" class="add-student-form">
                             <div>
-                                <label for="name">姓名</label>
+                                <label for="name">Name</label>
                                 <input type="text" name="name" autocomplete="off">
                             </div>
                             <div class="sex">
-                                <label for="sex">性别</label>
+                                <label for="sex">Status</label>
                                 <input type="radio" name="sex" checked value="0">
-                                <span>男</span>
-                                <input type="radio" name="sex" value="1"><span>女</span>
+                                <span>waiting</span>
+                                <input type="radio" name="sex" value="1"><span>completed</span>
                             </div>
                             <div>
-                                <label for="sNo">学号</label>
+                                <label for="sNo">List</label>
                                 <input type="text" name="sNo">
                             </div>
                             <div>
-                                <label for="email">邮箱</label>
+                                <label for="email">Email</label>
                                 <input type="text" name="email">
                             </div>
                             <div>
-                                <label for="birth">出生年</label>
+                                <label for="birth">Year</label>
                                 <input type="text" name="birth">
                             </div>
                             <div>
-                                <label for="phone">手机号</label>
+                                <label for="phone">N/A</label>
                                 <input type="text" name="phone">
                             </div>
                             <div>
-                                <label for="address">住址</label>
+                                <label for="address">Order Number</label>
                                 <input type="text" name="address">
                             </div>
                             <div>
                                 <label for=""></label>
-                                <input type="submit" value="提交" class="btn" id="edit-submit">
-                                <input type="reset" value="重置" class="btn">
+                                <input type="submit" value="Submit" class="btn" id="edit-submit">
+                                <input type="reset" value="Reset" class="btn">
                             </div>
                         </form>
                     </div>
@@ -129,39 +107,39 @@
             <div class="add-student content" id="add-student">
                 <form action="#" id="add-student-form" class="add-student-form">
                     <div>
-                        <label for="name">姓名</label>
+                        <label for="name">Name</label>
                         <input type="text" name="name" autocomplete="off">
                     </div>
                     <div class="sex">
-                        <label for="sex">性别</label>
+                        <label for="sex">Status</label>
                         <input type="radio" name="sex" checked value="0">
-                        <span>男</span>
-                        <input type="radio" name="sex" value="1"><span>女</span>
+                        <span>waiting</span>
+                        <input type="radio" name="sex" value="1"><span>completed</span>
                     </div>
                     <div>
-                        <label for="sNo">学号</label>
+                        <label for="sNo">List</label>
                         <input type="text" id="sNo" name="sNo">
                     </div>
                     <div>
-                        <label for="email">邮箱</label>
+                        <label for="email">Email</label>
                         <input type="text" id="email" name="email">
                     </div>
                     <div>
-                        <label for="birth">出生年</label>
+                        <label for="birth">Year</label>
                         <input type="text" id="birth" name="birth">
                     </div>
                     <div>
-                        <label for="phone">手机号</label>
-                        <input type="text" id="phone" name="phone">
+                        <label for="phone">N/A</label>
+                        <input type="text" id="phone" name="phone" value="13000000000">
                     </div>
                     <div>
-                        <label for="address">住址</label>
+                        <label for="address">Order Number</label>
                         <input type="text" id="address" name="address">
                     </div>
                     <div>
                         <label for=""></label>
-                        <input type="submit" value="提交" class="btn" id="add-submit">
-                        <input type="reset" value="重置" class="btn">
+                        <input type="submit" value="Submit" class="btn" id="add-submit">
+                        <input type="reset" value="Reset" class="btn">
                     </div>
                 </form>
             </div>
@@ -169,9 +147,6 @@
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.js"
         integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous">
-
-
-
     </script>
     <script>
         (function () {
@@ -275,10 +250,27 @@
         }())
     </script>
     <script>
+        /*
+        原始数据库对照表
+        list-sNo
+        Name-Name
+        OrderNumber-Address
+        Status-Sex
+            -女-completed
+            -男-waiting
+        Email-Email
+        Year-Age
+        N/A-Mobile Number
+        */
         var pageSize = 10;
         var nowPage = 1;
         var tableData = [];
         var searchWord = "";
+        var birth = document.getElementById("birth");
+        (function () {
+            birth.setAttribute('value', new Date().getFullYear())
+
+        })()
 
         function bindEvent() {
             $('#menu').on('click', 'dd', function (e) {
@@ -296,6 +288,7 @@
             $('#edit-submit').click(function (e) {
                 e.preventDefault();
                 var data = $('#edit-student-form').serialize()
+                console.log(data)
                 transferData('/api/student/updateStudent', data, function () {
                     alert('修改成功');
                     $('#modal').slideUp();
@@ -427,16 +420,17 @@
                 str += '<tr>\
         <td>' + item.sNo + '</td>\
         <td> ' + item.name + ' </td>\
-        <td>' + (item.sex ? '女' : '男') + '</td>\
-        <td> ' + item.email + '</td>\
-        <td>' + (new Date().getFullYear() - item.birth) + '</td>\
-        <td> ' + item.phone + '</td>\
         <td> ' + item.address + '</td>\
+        <td>' + (item.sex ? 'Completed' : 'Waiting') + '</td>\
+        <td> ' + item.email + '</td>\
+        <td>' + (item.birth) + '</td>\
+        <td> ' + item.phone + '</td>\
         <td>\
             <button class="btn edit" data-index=' + index + '>编辑</button>\
             <button class="btn del" data-index=' + index + '>删除</button>\
         </td>\
     </tr>';
+
             });
             $('#student-body').html(str);
             bindTableEvent();
