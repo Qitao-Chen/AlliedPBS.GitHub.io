@@ -380,10 +380,17 @@
             clearInterval(autoUpdateTimer)
             if (autoUpdateClickCal % 2 === 0) {
                 autoUpdate = 1;
+
+                autoUpdateTimer = setInterval(() => {
+                    getTableData(nowPage)
+                    console.log('n')
+                }, 6000)
+
             } else {
+
                 autoUpdate = 0;
             }
-            getTableData(nowPage);
+
             autoUpdateClickCal++;
         }
 
@@ -436,12 +443,12 @@
                 // 渲染数据
                 renderTable(req.data.findByPage);
                 //every 10 minutes get new table
-                if (autoUpdate) {
-                    autoUpdateTimer = setInterval(() => {
-                        renderTable(req.data.findByPage);
-                        console.log('n')
-                    }, 6000)
-                }
+                // if (autoUpdate) {
+                //     autoUpdateTimer = setInterval(() => {
+                //         renderTable(req.data.findByPage);
+                //         console.log('n')
+                //     }, 6000)
+                // }
 
             });
         }
