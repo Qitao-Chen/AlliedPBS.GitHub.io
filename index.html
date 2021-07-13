@@ -32,6 +32,15 @@
                     <label for="search-word">KeyWords Search:</label>
                     <input type="text" id="search-word">
                     <button id="search-submit">search</button>
+
+                    <!-- 新增功能 -->
+                    <input style="margin-left: 5px;" id="waiting-show" type="radio" name="sex" value="0">
+                    <label for="waiting-show">Waiting</label>
+                    <input style="margin-left: 5px;" id="completed-show" type="radio" name="sex" value="1">
+                    <label for="completed-show">Completed</label>
+                    <input style="margin-left: 5px;" type="checkbox" id="update-page" name="autoUpdate"
+                        onclick="autoUpdateHandler()">
+                    <label for="update-page">Auto Update</label>
                 </div>
                 <table border="0">
                     <!-- 表头区域 -->
@@ -70,6 +79,7 @@
                                 <span>waiting</span>
                                 <input type="radio" name="sex" value="1"><span>completed</span>
                             </div>
+
                             <div>
                                 <label for="sNo">List</label>
                                 <input type="text" name="sNo">
@@ -267,6 +277,10 @@
         var tableData = [];
         var searchWord = "";
         var birth = document.getElementById("birth");
+        var searchStatus = -1;
+        var autoUpdate = 0; //true or false, default false
+        var autoUpdateClickCal = 2; //autoUpdate checkbox calculator
+        var autoUpdateTimer;
         (function () {
             birth.setAttribute('value', new Date().getFullYear())
 
@@ -316,8 +330,34 @@
                 searchWord = value;
                 // 有内容则 让其获取searchStudent接口数据数据
                 getSearchTableData();
-            })
+            });
+            $('#waiting-show').click(function (e) {
+                searchStatus = $('#waiting-show').val();
+                getSearchTableData();
+            });
+            $('#completed-show').click(function (e) {
+                searchStatus = $('#completed-show').val();
+                getSearchTableData();
+            });
+            //自动更新
+            // $('update-page').change(function (e) {
+            //     if (this.checked) {
+            //         console.log($('update-page').val())
+            //         autoUpdate = $('update-page').val();
+            //     }
 
+            // })
+        }
+        //自动更新
+        function autoUpdateHandler() {
+            clearInterval(autoUpdateTimer)
+            if (autoUpdateClickCal % 2 === 0) {
+                autoUpdate = 1;
+            } else {
+                autoUpdate = 0;
+            }
+            getTableData(nowPage);
+            autoUpdateClickCal++;
         }
 
         function bindTableEvent() {
@@ -368,13 +408,21 @@
                 });
                 // 渲染数据
                 renderTable(req.data.findByPage);
+                //every 10 minutes get new table
+                if (autoUpdate) {
+                    autoUpdateTimer = setInterval(() => {
+                        renderTable(req.data.findByPage);
+                        console.log('n')
+                    }, 6000)
+                }
+
             });
         }
 
         function getSearchTableData() {
             // 获取搜索后的表格数据
             transferData("/api/student/searchStudent", {
-                sex: -1,
+                sex: searchStatus,
                 search: searchWord,
                 page: nowPage,
                 size: pageSize,
@@ -438,10 +486,10 @@
         // 不一样的作为参数传递 相同的代码封装到函数里面
         function transferData(api, data, callback) {
             if ($.type(data) == 'string') {
-                data += "&appkey=qitao_1625724881815";
+                data += "&appkey=ericchen_1626159005994";
             } else {
                 data = $.extend(data, {
-                    appkey: 'qitao_1625724881815'
+                    appkey: 'ericchen_1626159005994'
                 });
             }
             $.ajax({

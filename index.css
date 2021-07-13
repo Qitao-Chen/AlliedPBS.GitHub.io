@@ -5,31 +5,37 @@
     color: #b3bcc5;
 }
 
-html,body {
+html,
+body {
     height: 100%;
 }
+
 .wrapper {
     width: 100%;
     height: 100%;
     background-color: #eee;
 }
+
 .wrapper .header {
     height: 70px;
     line-height: 70px;
     background-color: #354457;
 }
+
 .wrapper .header .logo {
     padding-left: 20px;
     width: 200px;
     height: 70px;
     line-height: 70px;
 }
+
 .wrapper .header .logo img {
     width: 30px;
     height: 30px;
     display: inline-block;
     vertical-align: middle;
 }
+
 .wrapper .left-menu {
     /* float: left; */
     /* display: inline-block; */
@@ -40,23 +46,29 @@ html,body {
     height: calc(100% - 70px);
     background-color: #4d5e70;
 }
-dl dt, dl dd {
+
+dl dt,
+dl dd {
     /* width: 100%; */
     height: 40px;
     line-height: 40px;
 }
+
 dl dt {
     padding-left: 8px;
     font-weight: bold;
 }
+
 dl dd {
     padding-left: 30px;
     cursor: pointer;
 }
+
 dl dd:hover {
     background-color: rgba(255, 255, 255, 0.5);
     color: #354457;
 }
+
 dl dd.active {
     background-color: #ddd;
     color: #354457;
@@ -71,6 +83,7 @@ dl dd.active {
     left: 200px;
     top: 70px;
 }
+
 /* 
     三种实现两列布局方式   缺点
     1. float  产生浮动流
@@ -81,53 +94,71 @@ dl dd.active {
     width: 400px;
     margin: 50px auto;
 }
-.add-student-form input, .add-student-form label{
+
+.add-student-form input,
+.add-student-form label {
     font-size: 16px;
     color: #354457;
 }
+
 .add-student-form label {
     display: inline-block;
     width: 80px;
     text-align: right;
 }
+
 .add-student-form div {
     margin: 10px 0px;
 }
+
 .add-student-form .btn {
     padding: 5px 30px;
 }
+
 .add-student-form .sex span {
     margin-right: 10px;
     font-size: 16px;
     color: #354457;
 }
+
 .add-student {
     display: none;
 }
+
 .student-list {
     display: none;
 }
-.student-list table, .student-list table tr td, .student-list table tr th {
+
+.student-list table,
+.student-list table tr td,
+.student-list table tr th {
     font-size: 14px;
     text-align: center;
 }
+
 .student-list table {
     width: 100%;
 }
+
 .student-list table thead {
     background-color: #e3e8ee;
 }
+
 .student-list table tbody {
     background-color: #fff;
 }
+
 table tr th {
     color: #646987;
 }
+
 table tr td {
     color: #354457;
     min-width: 100px;
 }
-table tr th, table tr td {
+
+table tr th,
+table tr td {
     padding: 10px 0;
 }
 
@@ -137,17 +168,21 @@ table button.btn {
     color: #fff;
     cursor: pointer;
 }
+
 table button.btn.edit {
     background-color: #5cb85c;
 }
+
 table button.btn.del {
     background-color: #d9534f;
 }
-table button.btn.edit:hover{
+
+table button.btn.edit:hover {
     color: #fff;
     background-color: #398439;
     border-color: #255625;
 }
+
 table button.btn.del:hover {
     color: #fff;
     background-color: #c9302c;
@@ -161,9 +196,11 @@ table button.btn.del:hover {
     bottom: 0;
     display: none;
 }
+
 .modal.show {
     display: block;
 }
+
 .modal .mask {
     position: fixed;
     top: 0;
@@ -172,6 +209,7 @@ table button.btn.del:hover {
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.5);
 }
+
 .modal .modal-content {
     background-color: #fff;
     position: absolute;
@@ -183,6 +221,7 @@ table button.btn.del:hover {
     margin-top: -225px;
     padding: 20px;
 }
+
 .modal .modal-content h2 {
     font-size: 16px;
 }
@@ -199,6 +238,7 @@ table button.btn.del:hover {
     /* border: 1px solid #000; */
     margin: 10px;
 }
+
 #turn-page li {
     display: inline-block;
     padding: 3px 10px;
@@ -208,6 +248,7 @@ table button.btn.del:hover {
     cursor: pointer;
     margin: 0 5px;
 }
+
 #turn-page li.cur-page {
     background-color: #428bca;
     border: 1px solid #428bca;
@@ -221,19 +262,21 @@ table button.btn.del:hover {
     padding: 0px 20px;
     background-color: #eee;
 }
+
 .search label {
     font-size: 16px;
     color: #646987;
     font-weight: 800;
 }
 
-.search input {
+.search #search-word {
     font-size: 16px;
     width: 200px;
     height: 30px;
     border: none;
     outline: none;
 }
+
 #search-submit {
     height: 28px;
     line-height: 28px;
@@ -248,6 +291,7 @@ table button.btn.del:hover {
     vertical-align: center;
     /* border: 1px solid #000; */
 }
+
 #search-submit:hover {
     background: #1e2936;
 }
