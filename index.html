@@ -380,11 +380,12 @@
             clearInterval(autoUpdateTimer)
             if (autoUpdateClickCal % 2 === 0) {
                 autoUpdate = 1;
-
+                // var n = 1;
                 autoUpdateTimer = setInterval(() => {
+
                     getTableData(nowPage)
-                    console.log('n')
-                }, 6000)
+                    // console.log(n++)
+                }, 300000)
 
             } else {
 
@@ -517,8 +518,10 @@
             $('#student-body').html(str);
             bindTableEvent();
         }
+        // var n = 1;
         // 不一样的作为参数传递 相同的代码封装到函数里面
         function transferData(api, data, callback) {
+
             if ($.type(data) == 'string') {
                 data += "&appkey=Allied01_1626182895004";
             } else {
@@ -532,10 +535,11 @@
                 data: data,
                 dataType: 'json',
                 success: function (req) {
-                    console.log(this.url)
+                    // console.log(this.url)
                     if (req.status == 'success') {
                         callback(req);
-
+                        // n++
+                        // console.log('ajax request times:' + n)
                     } else {
                         alert(req.msg);
                     }
