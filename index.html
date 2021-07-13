@@ -155,14 +155,13 @@
                     <div class="row-mb-3">
                         <label for="birth" class="col-sm-2 col-form-label">Year</label>
                         <div class="short-input col-md-8">
-                            <input type="text" name="birth" class="form-control" id="birth" disabled="disabled">
+                            <input type="text" name="birth" class="form-control" id="birth">
                         </div>
                     </div>
                     <div class="row-mb-3">
                         <label for="phone" class="col-sm-2 col-form-label">N/A</label>
                         <div class="short-input col-md-8">
-                            <input type="text" name="phone" class="form-control" disabled="disabled"
-                                value="13000000000">
+                            <input type="text" name="phone" class="form-control" value="13000000000">
                         </div>
                     </div>
                     <div class="row-mb-3">
@@ -310,8 +309,8 @@
             var birth = document.getElementById("birth");
             var birthEdit = document.getElementById("birthEdit");
             console.log(birthEdit)
-            birth.setAttribute('value', new Date().getFullYear());
-            birthEdit.setAttribute('value', new Date().getFullYear())
+            birth.setAttribute('value', new Date().getFullYear() - 1);
+            birthEdit.setAttribute('value', new Date().getFullYear() - 1)
         })()
 
         function bindEvent() {
