@@ -30,10 +30,13 @@ body {
 }
 
 .wrapper .header .logo img {
-    width: 30px;
+    /* width: 30px;
     height: 30px;
     display: inline-block;
-    vertical-align: middle;
+    vertical-align: middle; */
+    display: block;
+    max-height: 100%;
+    width: auto
 }
 
 .wrapper .left-menu {
@@ -98,7 +101,8 @@ dl dd.active {
 .add-student-form input,
 .add-student-form label {
     font-size: 16px;
-    color: #354457;
+    color: black;
+    margin-left: revert;
 }
 
 .add-student-form label {
@@ -108,11 +112,16 @@ dl dd.active {
 }
 
 .add-student-form div {
-    margin: 10px 0px;
+    margin: 2px 0px;
 }
 
 .add-student-form .btn {
     padding: 5px 30px;
+    margin-top: 19px;
+}
+
+.add-student-form .btn.btn-danger {
+    margin-left: 55px;
 }
 
 .add-student-form .sex span {
@@ -170,11 +179,11 @@ table button.btn {
 }
 
 table button.btn.edit {
-    background-color: #5cb85c;
+    background-color: white;
 }
 
 table button.btn.del {
-    background-color: #d9534f;
+    background-color: white;
 }
 
 table button.btn.edit:hover {
@@ -195,6 +204,16 @@ table button.btn.del:hover {
     right: 0;
     bottom: 0;
     display: none;
+}
+
+.modal .short-input {
+    display: inline-block;
+    margin-left: 5px;
+}
+
+.add-student-form .short-input {
+    display: inline-block;
+    margin-left: 5px;
 }
 
 .modal.show {

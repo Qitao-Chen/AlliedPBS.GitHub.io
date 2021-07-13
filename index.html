@@ -8,14 +8,17 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
+<script src="https://kit.fontawesome.com/faca7d3472.js" crossorigin="anonymous"></script>
 
 <body>
     <div class="wrapper">
         <div class="header">
             <div class="logo">
-                <img src="./images/logo.png" alt="">
-                <span>Allied Gaming</span>
+                <img src="https://alliedgamingpc.com.au//wp-content/uploads/2019/11/allied-logo-inverse.png" alt="">
+                <!-- <span>Allied Gaming</span> -->
             </div>
         </div>
         <div class="left-menu">
@@ -32,7 +35,6 @@
                     <label for="search-word">KeyWords Search:</label>
                     <input type="text" id="search-word">
                     <button id="search-submit">search</button>
-
                     <!-- 新增功能 -->
                     <input style="margin-left: 5px;" id="waiting-show" type="radio" name="sex" value="0">
                     <label for="waiting-show">Waiting</label>
@@ -42,36 +44,37 @@
                         onclick="autoUpdateHandler()">
                     <label for="update-page">Auto Update</label>
                 </div>
-                <table border="0">
+                <table border="0" class="table table-hover table-light">
                     <!-- 表头区域 -->
                     <thead>
                         <tr>
-                            <th>List</th>
-                            <th>Name</th>
-                            <th>Order Number</th>
-                            <th>Status</th>
-                            <th>Email</th>
-                            <th>Year</th>
-                            <th>N/A</th>
-                            <th>Operation</th>
+                            <th scope="col">List</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Order Number</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Year</th>
+                            <th scope="col">N/A</th>
+                            <th scope="col">Operation</th>
                         </tr>
                     </thead>
                     <!-- 表格内容 -->
                     <tbody id="student-body">
-
                     </tbody>
                 </table>
                 <ul id="turn-page">
-
                 </ul>
                 <div class="modal" id="modal">
                     <div class="mask"></div>
                     <div class="modal-content">
                         <h2>Edit Order</h2>
                         <form action="#" id="edit-student-form" class="add-student-form">
-                            <div>
-                                <label for="name">Name</label>
-                                <input type="text" name="name" autocomplete="off">
+                            <div class="row-mb-3">
+                                <label for="name" class="col-sm-2 col-form-label col-form-label-sm">Name</label>
+                                <div class="short-input col-md-8">
+                                    <input type="text" name="name" autocomplete="off"
+                                        class="form-control form-control-sm">
+                                </div>
                             </div>
                             <div class="sex">
                                 <label for="sex">Status</label>
@@ -80,45 +83,55 @@
                                 <input type="radio" name="sex" value="1"><span>completed</span>
                             </div>
 
-                            <div>
-                                <label for="sNo">List</label>
-                                <input type="text" name="sNo">
+                            <div class="row-mb-3">
+                                <label for="sNo" class="col-sm-2 col-form-label">List</label>
+                                <div class="short-input col-md-8">
+                                    <input type="text" name="sNo" class="form-control">
+                                </div>
                             </div>
-                            <div>
-                                <label for="email">Email</label>
-                                <input type="text" name="email">
+                            <div class="row-mb-3">
+                                <label for="email" class="col-sm-2 col-form-label">Email</label>
+                                <div class="short-input col-md-8">
+                                    <input type="text" name="email" class="form-control">
+                                </div>
                             </div>
-                            <div>
-                                <label for="birth">Year</label>
-                                <input type="text" name="birth">
+                            <div class="row-mb-3">
+                                <label for="birth" class="col-sm-2 col-form-label">Year</label>
+                                <div class="short-input col-md-8">
+                                    <input type="text" name="birth" class="form-control" id="birthEdit"
+                                        disabled="disabled">
+                                </div>
                             </div>
-                            <div>
-                                <label for="phone">N/A</label>
-                                <input type="text" name="phone">
+                            <div class="row-mb-3">
+                                <label for="phone" class="col-sm-2 col-form-label">N/A</label>
+                                <div class="short-input col-md-8">
+                                    <input type="text" name="phone" class="form-control" disabled="disabled"
+                                        value="13000000000">
+                                </div>
                             </div>
-                            <div>
-                                <label for="address">Order Number</label>
-                                <input type="text" name="address">
+                            <div class="row-mb-3">
+                                <label for="address" class="col-sm-2 col-form-label">Order No.</label>
+                                <div class="short-input col-md-8">
+                                    <input type="text" name="address" class="form-control">
+                                </div>
                             </div>
                             <div>
                                 <label for=""></label>
-                                <input type="submit" value="Submit" class="btn" id="edit-submit">
-                                <input type="reset" value="Reset" class="btn">
+                                <input type="submit" value="Submit" class="btn btn-primary" id="edit-submit">
+                                <input type="reset" value="Reset" class="btn btn-danger">
                             </div>
                         </form>
                     </div>
                 </div>
-
-
-
-
             </div>
             <!-- 新增学生表单 -->
             <div class="add-student content" id="add-student">
                 <form action="#" id="add-student-form" class="add-student-form">
-                    <div>
-                        <label for="name">Name</label>
-                        <input type="text" name="name" autocomplete="off">
+                    <div class="row-mb-3">
+                        <label for="name" class="col-sm-2 col-form-label col-form-label-sm">Name</label>
+                        <div class="short-input col-md-8">
+                            <input type="text" name="name" autocomplete="off" class="form-control form-control-sm">
+                        </div>
                     </div>
                     <div class="sex">
                         <label for="sex">Status</label>
@@ -126,30 +139,42 @@
                         <span>waiting</span>
                         <input type="radio" name="sex" value="1"><span>completed</span>
                     </div>
-                    <div>
-                        <label for="sNo">List</label>
-                        <input type="text" id="sNo" name="sNo">
+
+                    <div class="row-mb-3">
+                        <label for="sNo" class="col-sm-2 col-form-label">List</label>
+                        <div class="short-input col-md-8">
+                            <input type="text" name="sNo" class="form-control">
+                        </div>
                     </div>
-                    <div>
-                        <label for="email">Email</label>
-                        <input type="text" id="email" name="email">
+                    <div class="row-mb-3">
+                        <label for="email" class="col-sm-2 col-form-label">Email</label>
+                        <div class="short-input col-md-8">
+                            <input type="text" name="email" class="form-control">
+                        </div>
                     </div>
-                    <div>
-                        <label for="birth">Year</label>
-                        <input type="text" id="birth" name="birth">
+                    <div class="row-mb-3">
+                        <label for="birth" class="col-sm-2 col-form-label">Year</label>
+                        <div class="short-input col-md-8">
+                            <input type="text" name="birth" class="form-control" id="birth" disabled="disabled">
+                        </div>
                     </div>
-                    <div>
-                        <label for="phone">N/A</label>
-                        <input type="text" id="phone" name="phone" value="13000000000">
+                    <div class="row-mb-3">
+                        <label for="phone" class="col-sm-2 col-form-label">N/A</label>
+                        <div class="short-input col-md-8">
+                            <input type="text" name="phone" class="form-control" disabled="disabled"
+                                value="13000000000">
+                        </div>
                     </div>
-                    <div>
-                        <label for="address">Order Number</label>
-                        <input type="text" id="address" name="address">
+                    <div class="row-mb-3">
+                        <label for="address" class="col-sm-2 col-form-label">Order No.</label>
+                        <div class="short-input col-md-8">
+                            <input type="text" name="address" class="form-control">
+                        </div>
                     </div>
                     <div>
                         <label for=""></label>
-                        <input type="submit" value="Submit" class="btn" id="add-submit">
-                        <input type="reset" value="Reset" class="btn">
+                        <input type="submit" value="Submit" class="btn btn-primary" id="add-submit">
+                        <input type="reset" value="Reset" class="btn btn-danger">
                     </div>
                 </form>
             </div>
@@ -276,14 +301,17 @@
         var nowPage = 1;
         var tableData = [];
         var searchWord = "";
-        var birth = document.getElementById("birth");
         var searchStatus = -1;
         var autoUpdate = 0; //true or false, default false
         var autoUpdateClickCal = 2; //autoUpdate checkbox calculator
         var autoUpdateTimer;
-        (function () {
-            birth.setAttribute('value', new Date().getFullYear())
 
+        (function () {
+            var birth = document.getElementById("birth");
+            var birthEdit = document.getElementById("birthEdit");
+            console.log(birthEdit)
+            birth.setAttribute('value', new Date().getFullYear());
+            birthEdit.setAttribute('value', new Date().getFullYear())
         })()
 
         function bindEvent() {
@@ -474,8 +502,8 @@
         <td>' + (item.birth) + '</td>\
         <td> ' + item.phone + '</td>\
         <td>\
-            <button class="btn edit" data-index=' + index + '>编辑</button>\
-            <button class="btn del" data-index=' + index + '>删除</button>\
+            <button class="btn edit" data-index=' + index + '><i class="far fa-edit"></i></button>\
+            <button class="btn del" data-index=' + index + '><i class="far fa-trash-alt"></i></button>\
         </td>\
     </tr>';
 
