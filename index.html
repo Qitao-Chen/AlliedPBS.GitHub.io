@@ -27,6 +27,16 @@
                 <dd class="active" data-id="student-list">Order List</dd>
                 <dd data-id="add-student">Add Order</dd>
             </dl>
+            <div class="statistic-area">
+                <div class="waiting-order-num">
+                    <h5>Waiting Orders</h5>
+                    <span id="waiting-order-num-display">0</span>
+                </div>
+                <div class="completed-order-num">
+                    <h5>Completed Orders</h5>
+                    <span id="completed-order-num-display">0</span>
+                </div>
+            </div>
         </div>
         <div class="right-content">
             <!-- 学生列表 -->
@@ -44,26 +54,54 @@
                         onclick="autoUpdateHandler()">
                     <label for="update-page">Auto Update</label>
                 </div>
-                <table border="0" class="table table-hover table-light">
-                    <!-- 表头区域 -->
-                    <thead>
-                        <tr>
-                            <th scope="col">List</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Order Number</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Email</th>
+                <div class="table-area">
+                    <!-- waiting-table -->
+                    <div class="table-area-waiting">
+                        <table border="0" class="table table-hover table-light table-waiting">
+                            <!-- 表头区域 -->
+                            <thead>
+                                <tr>
+                                    <th scope="col">List</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Notes</th>
+                                    <th scope="col">Status</th>
+                                    <!-- <th scope="col">Email</th>
                             <th scope="col">Year</th>
-                            <th scope="col">N/A</th>
-                            <th scope="col">Operation</th>
-                        </tr>
-                    </thead>
-                    <!-- 表格内容 -->
-                    <tbody id="student-body">
-                    </tbody>
-                </table>
-                <ul id="turn-page">
-                </ul>
+                            <th scope="col">N/A</th> -->
+                                    <th scope="col">Operation</th>
+                                </tr>
+                            </thead>
+                            <!-- 表格内容 -->
+                            <tbody id="student-body-waiting">
+                            </tbody>
+                        </table>
+                        <ul id="turn-page">
+                        </ul>
+                    </div>
+                    <!-- completed table -->
+                    <div class="table-area-completed">
+                        <table border="0" class="table table-hover table-light table-completed">
+                            <!-- 表头区域 -->
+                            <thead>
+                                <tr>
+                                    <th scope="col">List</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Notes</th>
+                                    <th scope="col">Status</th>
+                                    <!-- <th scope="col">Email</th>
+                            <th scope="col">Year</th>
+                            <th scope="col">N/A</th> -->
+                                    <th scope="col">Operation</th>
+                                </tr>
+                            </thead>
+                            <!-- 表格内容 -->
+                            <tbody id="student-body-completed">
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
                 <div class="modal" id="modal">
                     <div class="mask"></div>
                     <div class="modal-content">
@@ -108,7 +146,7 @@
                                 </div>
                             </div>
                             <div class="row-mb-3">
-                                <label for="address" class="col-sm-2 col-form-label">Order No.</label>
+                                <label for="address" class="col-sm-2 col-form-label">Notes</label>
                                 <div class="short-input col-md-8">
                                     <input type="text" name="address" class="form-control">
                                 </div>
@@ -141,13 +179,13 @@
                     <div class="row-mb-3">
                         <label for="sNo" class="col-sm-2 col-form-label">List</label>
                         <div class="short-input col-md-8">
-                            <input type="text" name="sNo" class="form-control">
+                            <input type="text" name="sNo" class="form-control" id="add-sNo">
                         </div>
                     </div>
                     <div class="row-mb-3">
                         <label for="email" class="col-sm-2 col-form-label">Email</label>
                         <div class="short-input col-md-8">
-                            <input type="text" name="email" class="form-control">
+                            <input type="text" name="email" class="form-control" id="add-email">
                         </div>
                     </div>
                     <div class="row-mb-3">
@@ -163,7 +201,7 @@
                         </div>
                     </div>
                     <div class="row-mb-3">
-                        <label for="address" class="col-sm-2 col-form-label">Order No.</label>
+                        <label for="address" class="col-sm-2 col-form-label">Notes</label>
                         <div class="short-input col-md-8">
                             <input type="text" name="address" class="form-control">
                         </div>
@@ -200,7 +238,7 @@
                 $(this.wrap).empty();
                 // 添加上一页按钮
                 if (this.curPage > 1) {
-                    $(this.wrap).append($('<li class="prev-page">上一页</li>'));
+                    $(this.wrap).append($('<li class="prev-page">Previous</li>'));
                 } else {
                     $(this.wrap).remove('.prev-page');
                 }
@@ -238,7 +276,7 @@
 
                 // 添加下一页按钮
                 if (this.curPage < this.allPage) {
-                    $(this.wrap).append($('<li class="next-page">下一页</li>'));
+                    $(this.wrap).append($('<li class="next-page">Next</li>'));
                 } else {
                     $(this.wrap).remove('.next-page');
                 }
@@ -286,7 +324,7 @@
         原始数据库对照表
         list-sNo
         Name-Name
-        OrderNumber-Address
+        Notes-Address
         Status-Sex
             -女-completed
             -男-waiting
@@ -296,7 +334,8 @@
         */
         var pageSize = 10;
         var nowPage = 1;
-        var tableData = [];
+        var waitingTableData = [];
+        var completedTableData = [];
         var searchWord = "";
         var searchStatus = -1;
         var autoUpdate = 0; //true or false, default false
@@ -306,20 +345,105 @@
         (function () {
             var birth = document.getElementById("birth");
             var birthEdit = document.getElementById("birthEdit");
-            console.log(birthEdit)
             birth.setAttribute('value', new Date().getFullYear());
             birthEdit.setAttribute('value', new Date().getFullYear())
         })()
+
+        //自动更新
+        function autoUpdateHandler() {
+            clearInterval(autoUpdateTimer)
+            if (autoUpdateClickCal % 2 === 0) {
+                autoUpdate = 1;
+                // var n = 1;
+                autoUpdateTimer = setInterval(() => {
+                    getTableData(nowPage)
+                }, 300000)
+            } else {
+
+                autoUpdate = 0;
+            }
+
+            autoUpdateClickCal++;
+        }
+        /**页面过滤器for waiting order
+         *将所有数据获取到。然后进行分类
+         *
+         */
+        function pageFilter(req) {
+            var waitingOrders = 0; //记录waiting 人数
+            var completedOrders = 0; //记录completed 人数
+            var waitingCustomArr = []; //存储所有waiting order
+            var completedCustomArr = []; //存储所有completed order
+            for (var i = 0; i < req.length; i++) {
+
+                if (!req[i].sex) {
+                    waitingCustomArr.push(req[i])
+                    waitingOrders++
+                } else {
+                    completedCustomArr.push(req[i])
+                    completedOrders++;
+                }
+            }
+
+            return {
+                waitingOrders,
+                waitingCustomArr,
+                completedOrders,
+                completedCustomArr
+            }
+        }
+        /**模拟后端FindByPage
+         * 将所有的waiting order 拿到手之后就分配页
+         * data-经过pageFilter处理后的数据。
+         * pageSize-用户指定的显示数量
+         * curPage-当前页
+         */
+        function pagesHandler(data, pageSize, curPage) {
+            var pageStart = 0;
+            var totalPages = data.length / pageSize;
+            var pageData = []; //每页的用户数据
+            for (var i = 0; i < totalPages; i++) {
+                pageData[i] = data.slice(pageStart, (pageStart += 15))
+            }
+            return {
+                totalPages,
+                pageData
+            }
+        }
+
+        /**
+         * 对订单进行排序
+         */
+        function sortAlg(data, method) {
+            var meth = method ? method : 'default';
+            if (meth === 'default') {
+
+            }
+        }
+
+        function sNoGenerator() {
+            var curDate = new Date().toLocaleDateString()
+            var reg = /\//g;
+            var dateList = curDate.replace(reg, '');
+            var num = Math.ceil(Math.random() * 10000 + 1000)
+            return num + dateList; //1000-10000
+        }
 
         function bindEvent() {
             $('#menu').on('click', 'dd', function (e) {
                 $('#menu > dd.active').removeClass('active');
                 $(this).addClass('active');
                 var id = $(this).attr('data-id');
-                // console.log($(this).data('id'))
                 if (id == 'student-list') {
                     getTableData(nowPage);
                     $('#add-student-form')[0].reset();
+                }
+                if (id == 'add-student') {
+                    //点击添加页面按钮时，自动生成sNo 和 email。
+                    var sNum = sNoGenerator();
+                    var email = sNum + '@' + 'foxmail.com'
+                    $('#add-sNo').val(sNum);
+                    $('#add-email').val(email)
                 }
                 $('.content').fadeOut();
                 $('#' + id).fadeIn();
@@ -327,7 +451,6 @@
             $('#edit-submit').click(function (e) {
                 e.preventDefault();
                 var data = $('#edit-student-form').serialize()
-                console.log(data)
                 transferData('/api/student/updateStudent', data, function () {
                     alert('修改成功');
                     $('#modal').slideUp();
@@ -373,30 +496,23 @@
 
             // })
         }
-        //自动更新
-        function autoUpdateHandler() {
-            clearInterval(autoUpdateTimer)
-            if (autoUpdateClickCal % 2 === 0) {
-                autoUpdate = 1;
-                // var n = 1;
-                autoUpdateTimer = setInterval(() => {
 
-                    getTableData(nowPage)
-                    // console.log(n++)
-                }, 300000)
-            } else {
-
-                autoUpdate = 0;
-            }
-
-            autoUpdateClickCal++;
-        }
 
         function bindTableEvent() {
-            $('.edit').click(function (e) {
+            //waiting edit 和 completed-edit 在这里完成事件绑定
+
+            $('.waiting-edit').click(function (e) {
+
+
                 var index = $(this).data('index');
                 $('#modal').slideDown();
-                initEditForm(tableData[index]);
+                initEditForm(waitingTableData[index]);
+            });
+            $('.completed-edit').click(function (e) {
+
+                var index = $(this).data('index');
+                $('#modal').slideDown();
+                initEditForm(completedTableData[index]);
             });
             $('.modal-content').click(function (e) {
                 e.stopPropagation();
@@ -405,10 +521,26 @@
                 $('#modal').slideUp();
             });
 
-            $('.del').click(function (e) {
+            $('.waiting-del').click(function (e) {
+                e.preventDefault();
+
                 var index = $(this).data('index');
                 var isDel = window.confirm('确认删除？');
-                var sNo = tableData[index].sNo;
+                var sNo = waitingTableData[index].sNo;
+                if (isDel) {
+                    transferData('/api/student/delBySno', {
+                        sNo: sNo
+                    }, function (req) {
+                        alert('删除成功');
+                        $('#menu > dd[data-id=student-list]').trigger('click');
+                    });
+                }
+            })
+            $('.completed-del').click(function (e) {
+                e.preventDefault();
+                var index = $(this).data('index');
+                var isDel = window.confirm('确认删除？');
+                var sNo = completedTableData[index].sNo;
                 if (isDel) {
                     transferData('/api/student/delBySno', {
                         sNo: sNo
@@ -421,16 +553,20 @@
         }
         // 获取表格数据
         function getTableData(page) {
-            // 获取搜索前的表格数据
-            transferData('/api/student/findByPage', {
+            // 获取搜索前的表格数据---根据所有的数据
+            transferData('/api/student/findAll', {
                 page: page,
                 size: pageSize
             }, function (req) {
                 // 总页数
-                allPage = Math.ceil(req.data.cont / pageSize);
+                var result = pageFilter(req.data);
+                //左边栏显示统计数量
+                $('#waiting-order-num-display').text(result.waitingCustomArr.length);
+                $('#completed-order-num-display').text(result.completedCustomArr.length)
+                var allCus = pagesHandler(result.waitingCustomArr, pageSize, page)
                 // 添加翻页
                 $('#turn-page').turnPage({
-                    allPage: allPage,
+                    allPage: Math.ceil(allCus.totalPages),
                     curPage: page,
                     // 改变页码时触发函数 重新获取搜索后的表格数据
                     changePage: function (page) {
@@ -439,17 +575,45 @@
                     }
                 });
                 // 渲染数据
-                renderTable(req.data.findByPage);
-                //every 10 minutes get new table
-                // if (autoUpdate) {
-                //     autoUpdateTimer = setInterval(() => {
-                //         renderTable(req.data.findByPage);
-                //         console.log('n')
-                //     }, 6000)
-                // }
-
+                var pageCustom = result.waitingCustomArr.slice(0, 15) //page1
+                var pageCustom2 = result.waitingCustomArr.slice(16, 31) //16-31 page 2
+                /*这里写个page函数 
+                 *
+                 *
+                 */
+                renderTable(allCus.pageData[nowPage - 1]);
+                renderTable(result.completedCustomArr);
+                bindTableEvent();
             });
         }
+        // function getTableData(page) {
+        //     // 获取搜索前的表格数据
+        //     transferData('/api/student/findByPage', {
+        //         page: page,
+        //         size: pageSize
+        //     }, function (req) {
+        //         // 总页数
+        //         console.log(req.data.findByPage)
+
+        //         allPage = Math.ceil(req.data.cont / pageSize);
+        //         console.log(req.data.cont)
+        //         console.log(req.data)
+        //         // 添加翻页
+        //         $('#turn-page').turnPage({
+        //             allPage: allPage,
+        //             curPage: page,
+        //             // 改变页码时触发函数 重新获取搜索后的表格数据
+        //             changePage: function (page) {
+        //                 nowPage = page;
+        //                 getTableData(page);
+        //             }
+        //         });
+        //         // 渲染数据
+        //         console.log(req.data.findByPage)
+        //         renderTable(req.data.findByPage);
+        //         //every 10 minutes get new table
+        //     });
+        // }
 
         function getSearchTableData() {
             // 获取搜索后的表格数据
@@ -494,55 +658,53 @@
         init();
 
         function renderTable(data) {
-            tableData = data;
-            var str = '';
+            var strWaiting = '';
+            var strCompleted = '';
             data.forEach(function (item, index) {
 
-
-
                 if (!item.sex) {
-                    str += '<tr>\
+                    waitingTableData = data;
+                    strWaiting += '<tr>\
         <td>' + item.sNo + '</td>\
         <td> ' + item.name + ' </td>\
         <td> ' + item.address + '</td>\
         <td class="table-danger">' + (item.sex ? 'Completed' : 'Waiting') + '</td>\
-        <td> ' + item.email + '</td>\
-        <td>' + (item.birth) + '</td>\
-        <td> ' + item.phone + '</td>\
         <td>\
-            <button class="btn edit" data-index=' + index + '><i class="far fa-edit"></i></button>\
-            <button class="btn del" data-index=' + index + '><i class="far fa-trash-alt"></i></button>\
+            <button class="btn waiting-edit" data-index=' + index + '><i class="far fa-edit"></i></button>\
+            <button class="btn waiting-del" data-index=' + index + '><i class="far fa-trash-alt"></i></button>\
         </td>\
-    </tr>';
+        </tr>'
+                    $('#student-body-waiting').html(strWaiting);
+
+
                 } else {
-                    str += '<tr>\
+                    completedTableData = data;
+                    strCompleted += '<tr>\
                       <td>' + item.sNo + '</td>\
                       <td> ' + item.name + ' </td>\
                       <td> ' + item.address + '</td>\
                       <td class="table-success">' + (item.sex ? 'Completed' : 'Waiting') + '</td>\
-                      <td> ' + item.email + '</td>\
-                      <td>' + (item.birth) + '</td>\
-                      <td> ' + item.phone + '</td>\
                       <td>\
-                          <button class="btn edit" data-index=' + index + '><i class="far fa-edit"></i></button>\
-                          <button class="btn del" data-index=' + index + '><i class="far fa-trash-alt"></i></button>\
+                          <button class="btn completed-edit" data-index=' + index + '><i class="far fa-edit"></i></button>\
+                          <button class="btn completed-del" data-index=' + index + '><i class="far fa-trash-alt"></i></button>\
                       </td>\
-                  </tr>';
+                  </tr>'
+                    $('#student-body-completed').html(strCompleted);
+
                 }
-                console.log(str)
+
             });
-            $('#student-body').html(str);
-            bindTableEvent();
+
         }
         // var n = 1;
         // 不一样的作为参数传递 相同的代码封装到函数里面
         function transferData(api, data, callback) {
 
             if ($.type(data) == 'string') {
-                data += "&appkey=Allied01_1626182895004";
+                data += "&appkey=qitao_1625724881815";
             } else {
                 data = $.extend(data, {
-                    appkey: 'Allied01_1626182895004'
+                    appkey: 'qitao_1625724881815'
                 });
             }
             $.ajax({

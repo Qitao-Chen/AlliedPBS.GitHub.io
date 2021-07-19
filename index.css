@@ -47,6 +47,33 @@ body {
     background-color: #4d5e70;
 }
 
+.statistic-area {
+    position: absolute;
+    bottom: 50px;
+    left: 20px;
+}
+
+.statistic-area .waiting-order-num {
+    text-align: center;
+}
+
+.statistic-area .waiting-order-num span {
+    font-size: 20px;
+    font-weight: bold;
+    color: red;
+}
+
+.statistic-area .completed-order-num {
+    text-align: center;
+
+}
+
+.statistic-area .completed-order-num span {
+    font-size: 20px;
+    font-weight: bold;
+    color: lightseagreen;
+}
+
 dl dt,
 dl dd {
     /* width: 100%; */
@@ -142,8 +169,18 @@ dl dd.active {
     text-align: center;
 }
 
-.student-list table {
-    width: 100%;
+.student-list .table-area {
+    display: flex;
+}
+
+.table-area-waiting {
+    width: 50%;
+}
+
+.table-area-completed {
+    overflow-y: scroll;
+    height: 665px;
+    width: 50%;
 }
 
 .student-list table thead {
@@ -250,25 +287,28 @@ table button.btn.del:hover {
 }
 
 #turn-page {
-    float: right;
-    /* border: 1px solid #000; */
-    margin: 10px;
+    /* float: right; */
+    display: flex;
+    justify-content: center;
+    /* margin: 10px; */
+    padding-left: 0;
 }
 
 #turn-page li {
     display: inline-block;
     padding: 3px 10px;
     border: 1px solid #ddd;
-    height: 25px;
     line-height: 25px;
     cursor: pointer;
     margin: 0 5px;
+    border-radius: 3px;
 }
 
 #turn-page li.cur-page {
     background-color: #428bca;
     border: 1px solid #428bca;
     color: #fff;
+
 }
 
 .search {
